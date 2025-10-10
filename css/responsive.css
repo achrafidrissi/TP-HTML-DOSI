@@ -1,11 +1,23 @@
 @media only screen and (max-width: 740px) {
-  #wrapper { background: #f77; }
+  #wrapper { 
+    background: initial; /* annule la couleur de fond */
+    display: flex;
+    flex-direction: column; /* une seule colonne */
+  }
 }
 
 @media only screen and (max-width: 570px) {
-  #wrapper { background: #f77; }
+  #wrapper { 
+    background: initial;
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 @media only screen and (max-width: 480px) {
-  #wrapper { background: #f77; }
+  #wrapper { 
+    background: initial;
+    display: flex;
+    flex-direction: column;
+  }
 }
