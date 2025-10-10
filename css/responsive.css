@@ -6,6 +6,14 @@
   }
 }
 
+/* Centre les titres principaux */
+  #wrapper h1, 
+  #wrapper h2, 
+  #wrapper h3 {
+    text-align: center;
+    width: 100%; /* pour s'assurer qu'ils prennent toute la largeur */
+  }
+
 @media only screen and (max-width: 570px) {
   #wrapper { 
     background: initial;
