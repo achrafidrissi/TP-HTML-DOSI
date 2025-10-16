@@ -279,3 +279,11 @@ header img:hover {
     font-size: 1rem;
   }
 }
+
+#chart-canvas {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: 1px solid #eee;
+  background: #fff;
+}

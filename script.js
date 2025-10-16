@@ -500,3 +500,86 @@ function renderSkillsRatings() {
 }
 
 document.addEventListener('DOMContentLoaded', renderSkillsRatings);
+
+
+// -------- Histogramme Canvas 2D --------
+function renderCanvasHistogram() {
+  const canvas = document.getElementById('chart-canvas');
+  if (!canvas) return;
+  const dpr = window.devicePixelRatio || 1;
+
+  // Adapter la résolution pour écrans retina
+  const cssWidth = canvas.clientWidth || canvas.width;
+  const cssHeight = canvas.clientHeight || canvas.height;
+  canvas.width = Math.round(cssWidth * dpr);
+  canvas.height = Math.round(cssHeight * dpr);
+
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+
+  const P = { top: 16, right: 12, bottom: 44, left: 32 };
+  const W = cssWidth - P.left - P.right;
+  const H = cssHeight - P.top - P.bottom;
+  const MAX = 5;
+
+  // Fond
+  ctx.fillStyle = '#fff';
+  ctx.fillRect(0, 0, cssWidth, cssHeight);
+
+  // Axes
+  ctx.strokeStyle = '#2a2a2a';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(P.left, P.top);
+  ctx.lineTo(P.left, P.top + H);
+  ctx.lineTo(P.left + W, P.top + H);
+  ctx.stroke();
+
+  // Grille horizontale (1..5)
+  ctx.strokeStyle = '#eee';
+  ctx.lineWidth = 1;
+  ctx.setLineDash([4, 4]);
+  for (let v = 1; v <= MAX; v++) {
+    const y = P.top + H - (v / MAX) * H;
+    ctx.beginPath();
+    ctx.moveTo(P.left, y);
+    ctx.lineTo(P.left + W, y);
+    ctx.stroke();
+  }
+  ctx.setLineDash([]);
+
+  // Barres
+  const n = SKILLS_RATINGS.length;
+  const gap = 10;                       // gap entre barres
+  const barW = Math.max(24, (W - gap * (n - 1)) / n);
+
+  ctx.font = '12px sans-serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'top';
+
+  SKILLS_RATINGS.forEach((s, i) => {
+    const level = Math.max(1, Math.min(5, Number(s.level) || 1));
+    const x = P.left + i * (barW + gap);
+    const h = (level / MAX) * H;
+    const y = P.top + H - h;
+
+    // barre
+    ctx.fillStyle = '#79a7e3';
+    ctx.fillRect(x, y, barW, h);
+
+    // valeur au-dessus
+    ctx.fillStyle = '#333';
+    ctx.textBaseline = 'alphabetic';
+    ctx.fillText(String(level), x + barW / 2, y - 6);
+
+    // label X
+    ctx.textBaseline = 'top';
+    ctx.fillStyle = '#555';
+    // raccourcir si trop long
+    const label = s.name.length > 12 ? s.name.slice(0, 12) + '…' : s.name;
+    ctx.fillText(label, x + barW / 2, P.top + H + 8);
+  });
+}
+
+window.addEventListener('resize', renderCanvasHistogram);
+document.addEventListener('DOMContentLoaded', renderCanvasHistogram);
