@@ -440,3 +440,63 @@ function attachSkillTooltips() {
 document.addEventListener('DOMContentLoaded', () => {
   attachSkillTooltips();
 });
+
+// -------- Auto-évaluation des compétences (étoiles) --------
+
+// -------- Auto-évaluation des compétences (étoiles) --------
+
+// Source de vérité: ajustez les niveaux 1..5
+const SKILLS_RATINGS = [
+  { name: 'HTML5', level: 5 },
+  { name: 'CSS3', level: 4 },
+  { name: 'JavaScript', level: 4 },
+  { name: 'React.js', level: 3 },
+  { name: 'Vue.js', level: 3 },
+  { name: 'Node.js', level: 3 },
+  { name: 'PHP', level: 2 },
+  { name: 'Python', level: 3 },
+  { name: 'MySQL', level: 3 },
+  { name: 'MongoDB', level: 2 },
+  { name: 'React Native', level: 2 },
+  { name: 'Flutter', level: 1 }
+];
+
+function createStars(level) {
+  const wrap = document.createElement('span');
+  wrap.className = 'rating-stars';
+  wrap.setAttribute('role', 'img');
+  wrap.setAttribute('aria-label', `${level} sur 5`);
+  wrap.title = `${level}/5`;
+
+  for (let i = 1; i <= 5; i++) {
+    const icon = document.createElement('i');
+    // FA4: fa-star (plein) / fa-star-o (vide)
+    icon.className = i <= level ? 'fa fa-star filled' : 'fa fa-star-o';
+    wrap.appendChild(icon);
+  }
+  return wrap;
+}
+
+function createRatingRow(name, level) {
+  const row = document.createElement('div');
+  row.className = 'rating-row';
+  row.setAttribute('data-skill', name);
+  row.setAttribute('data-level', String(level));
+
+  const label = document.createElement('div');
+  label.className = 'rating-label';
+  label.textContent = name;
+
+  row.appendChild(label);
+  row.appendChild(createStars(Math.max(1, Math.min(5, Number(level) || 1))));
+  return row;
+}
+
+function renderSkillsRatings() {
+  const mount = document.getElementById('skills-rating');
+  if (!mount) return;
+  mount.innerHTML = '';
+  SKILLS_RATINGS.forEach(s => mount.appendChild(createRatingRow(s.name, s.level)));
+}
+
+document.addEventListener('DOMContentLoaded', renderSkillsRatings);
