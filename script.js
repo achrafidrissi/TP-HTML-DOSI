@@ -233,3 +233,210 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
+
+// -------- Tooltip logic --------
+// Tooltip réutilisable
+function ensureTooltipBubble() {
+  let bubble = document.getElementById('tooltip-bubble');
+  if (!bubble) {
+    bubble = document.createElement('div');
+    bubble.id = 'tooltip-bubble';
+    bubble.className = 'tooltip-bubble';
+    document.body.appendChild(bubble);
+  }
+  return bubble;
+}
+
+// Positionne le tooltip sur les coordonnées souris
+function positionTooltipAtCursor(bubble, evt, offset = { x: 14, y: 16 }) {
+  const scrollY = window.scrollY || document.documentElement.scrollTop;
+  const scrollX = window.scrollX || document.documentElement.scrollLeft;
+
+  // Position bruitée pour ne pas cacher le curseur
+  let left = evt.clientX + scrollX + offset.x;
+  let top  = evt.clientY + scrollY + offset.y;
+
+  // Mesurer la bulle pour éviter les débordements
+  bubble.style.left = '0px'; // reset temporaire pour mesurer
+  bubble.style.top = '-9999px';
+  const rect = bubble.getBoundingClientRect();
+
+  // Contrainte à la fenêtre (avec 8px de marge)
+  const margin = 8;
+  const maxLeft = scrollX + window.innerWidth - rect.width - margin;
+  const maxTop  = scrollY + window.innerHeight - rect.height - margin;
+  left = Math.min(Math.max(left, scrollX + margin), maxLeft);
+  top  = Math.min(Math.max(top,  scrollY + margin), maxTop);
+
+  bubble.style.left = `${left}px`;
+  bubble.style.top  = `${top}px`;
+}
+
+function attachSkillTooltipsFollowCursor() {
+  const bubble = ensureTooltipBubble();
+  const skillItems = document.querySelectorAll('.skills-with-tooltips dt[data-tooltip], .skills-with-tooltips dd[data-tooltip]');
+
+  // Accessibilité clavier
+  skillItems.forEach(el => {
+    if (!el.hasAttribute('tabindex')) el.setAttribute('tabindex', '0');
+    el.setAttribute('aria-describedby', 'tooltip-bubble');
+  });
+
+  function showTooltipFor(el) {
+    const content = el.getAttribute('data-tooltip');
+    if (!content) return;
+    bubble.textContent = content;
+    bubble.classList.add('is-visible');
+  }
+
+  function hideTooltip() {
+    bubble.classList.remove('is-visible');
+  }
+
+  skillItems.forEach(el => {
+    // Souris
+    el.addEventListener('mouseenter', () => showTooltipFor(el));
+    el.addEventListener('mouseleave', hideTooltip);
+    el.addEventListener('mousemove', (evt) => {
+      if (bubble.classList.contains('is-visible')) {
+        positionTooltipAtCursor(bubble, evt);
+      }
+    });
+
+    // Clavier (positionner près du centre de l’élément focusé)
+    el.addEventListener('focus', () => {
+      showTooltipFor(el);
+      const rect = el.getBoundingClientRect();
+      const fakeEvent = {
+        clientX: rect.left + rect.width / 2,
+        clientY: rect.bottom
+      };
+      positionTooltipAtCursor(bubble, fakeEvent);
+    });
+    el.addEventListener('blur', hideTooltip);
+    el.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') hideTooltip();
+    });
+  });
+
+  // Recalage sur scroll/resize si visible et qu’un élément est focus
+  window.addEventListener('scroll', () => {
+    if (!bubble.classList.contains('is-visible')) return;
+    const el = document.activeElement && document.activeElement.matches('.skills-with-tooltips [data-tooltip]')
+      ? document.activeElement
+      : null;
+    if (el) {
+      const rect = el.getBoundingClientRect();
+      const fakeEvent = { clientX: rect.left + rect.width / 2, clientY: rect.bottom };
+      positionTooltipAtCursor(bubble, fakeEvent);
+    }
+  }, { passive: true });
+
+  window.addEventListener('resize', () => {
+    if (!bubble.classList.contains('is-visible')) return;
+    const el = document.activeElement && document.activeElement.matches('.skills-with-tooltips [data-tooltip]')
+      ? document.activeElement
+      : null;
+    if (el) {
+      const rect = el.getBoundingClientRect();
+      const fakeEvent = { clientX: rect.left + rect.width / 2, clientY: rect.bottom };
+      positionTooltipAtCursor(bubble, fakeEvent);
+    }
+  });
+}
+
+// Initialisation: appelez ceci à la fin de votre DOMContentLoaded existant
+document.addEventListener('DOMContentLoaded', () => {
+  attachSkillTooltipsFollowCursor();
+});
+
+
+// Positionne le tooltip sous la cible
+function positionTooltip(bubble, target) {
+  const rect = target.getBoundingClientRect();
+  const scrollY = window.scrollY || document.documentElement.scrollTop;
+  const scrollX = window.scrollX || document.documentElement.scrollLeft;
+
+  // Position sous l’élément, aligné à gauche avec un léger décalage
+  const top = rect.bottom + scrollY + 8; // 8px d’espace
+  const left = rect.left + scrollX + 0;
+
+  bubble.style.top = `${top}px`;
+  bubble.style.left = `${left}px`;
+
+  // Ajustement simple si dépassement de l’écran à droite
+  const bubbleRect = bubble.getBoundingClientRect();
+  const overflowRight = (bubbleRect.right - window.innerWidth);
+  if (overflowRight > 0) {
+    bubble.style.left = `${left - overflowRight - 12}px`;
+  }
+
+  // Caler la flèche si on a décalé
+  const arrowLeft = Math.max(12, rect.left + 16 - (parseFloat(bubble.style.left) - scrollX));
+  bubble.style.setProperty('--arrow-left', `${arrowLeft}px`);
+}
+
+// Gestion centralisée des événements
+function attachSkillTooltips() {
+  const bubble = ensureTooltipBubble();
+  const skillItems = document.querySelectorAll('.skills-with-tooltips dt[data-tooltip], .skills-with-tooltips dd[data-tooltip]');
+
+  // Rendre focusable pour clavier
+  skillItems.forEach(el => {
+    if (!el.hasAttribute('tabindex')) el.setAttribute('tabindex', '0');
+    el.setAttribute('aria-describedby', 'tooltip-bubble');
+  });
+
+  function showTooltipFor(el) {
+    const content = el.getAttribute('data-tooltip');
+    if (!content) return;
+
+    bubble.innerText = content; // contenu texte simple; si vous souhaitez HTML, utilisez innerHTML prudemment
+    bubble.classList.add('is-visible');
+    positionTooltip(bubble, el);
+  }
+
+  function hideTooltip() {
+    bubble.classList.remove('is-visible');
+  }
+
+  // Souris
+  skillItems.forEach(el => {
+    el.addEventListener('mouseenter', () => showTooltipFor(el));
+    el.addEventListener('mouseleave', hideTooltip);
+    el.addEventListener('mousemove', () => positionTooltip(bubble, el)); // suit le reflow si nécessaire
+  });
+
+  // Clavier
+  skillItems.forEach(el => {
+    el.addEventListener('focus', () => showTooltipFor(el));
+    el.addEventListener('blur', hideTooltip);
+    el.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') hideTooltip();
+    });
+  });
+
+  // Repositionnement à scroll/resize
+  window.addEventListener('scroll', () => {
+    if (bubble.classList.contains('is-visible')) {
+      const active = document.activeElement && document.activeElement.hasAttribute('data-tooltip') 
+        ? document.activeElement 
+        : document.querySelector('.skills-with-tooltips [data-tooltip]:hover');
+      if (active) positionTooltip(bubble, active);
+    }
+  }, { passive: true });
+
+  window.addEventListener('resize', () => {
+    if (bubble.classList.contains('is-visible')) {
+      const active = document.activeElement && document.activeElement.hasAttribute('data-tooltip') 
+        ? document.activeElement 
+        : document.querySelector('.skills-with-tooltips [data-tooltip]:hover');
+      if (active) positionTooltip(bubble, active);
+    }
+  });
+}
+
+// Initialisation
+document.addEventListener('DOMContentLoaded', () => {
+  attachSkillTooltips();
+});

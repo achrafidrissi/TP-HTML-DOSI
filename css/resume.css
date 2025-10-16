@@ -179,3 +179,51 @@ header img:hover {
 .detail-panel li {
   margin: 4px 0;
 }
+
+/* Conteneur tooltip générique, injecté par JS */
+.tooltip-bubble {
+  position: absolute;
+  z-index: 9999;
+  max-width: 280px;
+  background: #2a2a2a;
+  color: #fff;
+  font-size: 0.95rem;
+  line-height: 1.35;
+  padding: 8px 10px;
+  border-radius: 6px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+  opacity: 0;
+  transform: translateY(-6px);
+  pointer-events: none; /* ne capte pas la souris */
+  transition: opacity 120ms ease, transform 120ms ease;
+}
+
+/* Petite flèche */
+.tooltip-bubble::after {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: 16px;
+  border-width: 6px;
+  border-style: solid;
+  border-color: transparent transparent #2a2a2a transparent;
+}
+
+/* État visible */
+.tooltip-bubble.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Sur desktop, il est utile de rendre le dt focusable pour clavier */
+.skills-with-tooltips dt {
+  position: relative; /* pour référence visuelle */
+  cursor: help;
+}
+
+/* Accessibilité focus */
+.skills-with-tooltips dt:focus {
+  outline: 2px solid #79a7e3;
+  outline-offset: 2px;
+}
+
