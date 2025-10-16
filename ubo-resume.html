@@ -1,128 +1,144 @@
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Mon CV</title>
-        <meta name="description" content="A propos de moi">
-        <meta name="keywords" content="web,developer,resume"/>
-        <meta name="author" content="Thomas">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="css/resume.css"/>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="css/responsive.css">
-        <!-- <title>Document</title> -->
-    </head>
-    <body>
-        <div id="wrapper">
-            <!-- Section Header -->
-            <header class="profile-header">
-                <div class="profile-photo">
-                        <img src="data:image/jpeg;base64,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" alt="Photo de Thomas" />
-                    </div>
-                    <div itemscope itemtype="http://schema.org/Person">
-                    <h1 itemprop="name">Thomas</h1>
-                    <p itemprop="jobTitle">Développeur web</p>
-                    <p>Téléphone : <span itemprop="telephone">+33 1 23 45 67 89</span></p>
-                    <p>Email : <a href="mailto:jean.dupont@example.com" itemprop="email">jean.dupont@example.com</a></p>
-                    <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
-                        <p>Adresse : <span itemprop="streetAddress">12 rue des Lilas</span>, <span itemprop="postalCode">75000</span> <span itemprop="addressLocality">Paris</span></p>
-                    </div>
-                    <p>Site web : <a href="https://jeandupont.com" itemprop="url">jeandupont.com</a></p>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Mon CV</title>
+    <meta name="description" content="A propos de moi">
+    <meta name="keywords" content="web,developer,resume" />
+    <meta name="author" content="Thomas">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/resume.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+    <div id="wrapper">
+        <!-- Section Header -->
+        <header class="profile-header">
+            <div class="profile-photo">
+                <img src="data:image/jpeg;base64,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"
+                    alt="Photo de Thomas" />
+            </div>
+            <div itemscope itemtype="http://schema.org/Person">
+                <h1 itemprop="name">Thomas</h1>
+                <p itemprop="jobTitle">Développeur web</p>
+                <p>Téléphone : <span itemprop="telephone">+33 1 23 45 67 89</span></p>
+                <p>Email : <a href="mailto:jean.dupont@example.com" itemprop="email">jean.dupont@example.com</a></p>
+                <div itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+                    <p>Adresse : <span itemprop="streetAddress">12 rue des Lilas</span>, <span
+                            itemprop="postalCode">75000</span> <span itemprop="addressLocality">Paris</span></p>
                 </div>
-            </header>
+                <p>Site web : <a href="https://jeandupont.com" itemprop="url">jeandupont.com</a></p>
+            </div>
+        </header>
 
 
-            <!-- Section Présentation -->
-            <section>
-                <h2><i class="fa fa-info-circle"></i> Présentation</h2>
+        <!-- Section Présentation -->
+        <section>
+            <h2><i class="fa fa-info-circle"></i> Présentation</h2>
+            <p>
+                Passionné par le développement web, je suis un développeur polyvalent avec une forte expérience
+                dans la création de sites internet et d'applications. Mon expertise se concentre sur les technologies
+                front-end et back-end, ainsi que sur les pratiques de développement agile.
+            </p>
+        </section>
+
+        <!-- Section Expériences Professionnelles -->
+        <section>
+            <h2><i class="fa fa-briefcase"></i> Expériences Professionnelles</h2>
+            <article>
+                <h3><i class="fa fa-cogs"></i> Développeur Web - Entreprise ABC</h3>
+                <p><strong>Janvier 2020 - Présent</strong></p>
                 <p>
-                    Passionné par le développement web, je suis un développeur polyvalent avec une forte expérience
-                    dans la création de sites internet et d'applications. Mon expertise se concentre sur les technologies
-                    front-end et back-end, ainsi que sur les pratiques de développement agile.
+                    Développement de sites web responsives et d'applications web interactives.
+                    Collaboration avec les équipes UX/UI pour la création de solutions ergonomiques.
                 </p>
-            </section>
+            </article>
+            <article>
+                <h3><i class="fa fa-cogs"></i> Webmaster - Entreprise XYZ</h3>
+                <p><strong>Juin 2017 - Décembre 2019</strong></p>
+                <p>
+                    Gestion et mise à jour de sites internet, optimisation des performances SEO, et suivi des analyses
+                    de trafic.
+                </p>
+            </article>
+        </section>
 
-            <!-- Section Expériences Professionnelles -->
-            <section>
-                <h2><i class="fa fa-briefcase"></i> Expériences Professionnelles</h2>
-                <article>
-                    <h3><i class="fa fa-cogs"></i> Développeur Web - Entreprise ABC</h3>
-                    <p><strong>Janvier 2020 - Présent</strong></p>
-                    <p>
-                        Développement de sites web responsives et d'applications web interactives. 
-                        Collaboration avec les équipes UX/UI pour la création de solutions ergonomiques.
-                    </p>
-                </article>
-                <article>
-                    <h3><i class="fa fa-cogs"></i> Webmaster - Entreprise XYZ</h3>
-                    <p><strong>Juin 2017 - Décembre 2019</strong></p>
-                    <p>
-                        Gestion et mise à jour de sites internet, optimisation des performances SEO, et suivi des analyses de trafic.
-                    </p>
-                </article>
-            </section>
+        <!-- Section Compétences -->
+        <section>
+            <h2><i class="fa fa-desktop"></i> Compétences</h2>
+            <dl>
+                <dt><i class="fa fa-server"></i> Développement Front-End</dt>
+                <dd>HTML5, CSS3, JavaScript, React.js, Vue.js</dd>
+                <dt><i class="fa fa-wrench"></i> Développement Back-End</dt>
+                <dd>Node.js, PHP, Python, MySQL, MongoDB</dd>
+                <dt><i class="fa fa-mobile"></i> Développement mobile</dt>
+                <dd>React Native, Flutter</dd>
+            </dl>
+        </section>
 
-            <!-- Section Compétences -->
-            <section>
-                <h2><i class="fa fa-desktop"></i> Compétences</h2>
-                <dl>
-                    <dt><i class="fa fa-server"></i> Développement Front-End</dt>
-                    <dd>HTML5, CSS3, JavaScript, React.js, Vue.js</dd>
-                    <dt><i class="fa fa-wrench"></i> Développement Back-End</dt>
-                    <dd>Node.js, PHP, Python, MySQL, MongoDB</dd>
-                    <dt><i class="fa fa-mobile"></i> Développement mobile</dt>
-                    <dd>React Native, Flutter</dd>
-                </dl>
-            </section>
+        <!-- Section Formation -->
+        <section>
+            <h2>Formation</h2>
+            <ul>
+                <li><strong>Master Développement Web - Université de Paris</strong> (2015-2017)</li>
+                <li><strong>Licence Informatique - Université de Lyon</strong> (2012-2015)</li>
+            </ul>
+        </section>
 
-            <!-- Section Formation -->
+        <!-- Section Langues -->
+        <section>
+            <h2>Langues</h2>
+            <ul>
+                <li><strong>Français</strong> : Langue maternelle</li>
+                <li><strong>Anglais</strong> : Courant (C1)</li>
+                <li><strong>Espagnol</strong> : Intermédiaire (B1)</li>
+            </ul>
+        </section>
+
+        <!-- Section Hobbies -->
+        <section>
+            <h2><i class="fa fa-heart"></i> Hobbies</h2>
+            <ul class="with-details">
+                <li data-detail="Je lis 30+ livres/an, IA et récits d’exploration.">
+                    <i class="fa fa-book"></i> Lecture : Romans, Science-Fiction
+                </li>
+                <li data-detail="Voyages récents en Europe; intérêt architecture et cuisine.">
+                    <i class="fa fa-plane"></i> Voyages : Découverte de nouvelles cultures
+                </li>
+                <li data-detail="Urbain de nuit; post-traitement léger sur Lightroom.">
+                    <i class="fa fa-camera"></i> Photographie : Paysages urbains et naturels
+                </li>
+            </ul>
+        </section>
+
+
+        <!-- Section Footer -->
+        <footer>
             <section>
-                <h2>Formation</h2>
+                <h3>Suivez-moi</h3>
                 <ul>
-                    <li><strong>Master Développement Web - Université de Paris</strong> (2015-2017)</li>
-                    <li><strong>Licence Informatique - Université de Lyon</strong> (2012-2015)</li>
+                    <li><a href="https://www.linkedin.com/in/tonprofil" target="_blank"><i
+                                class="fa fa-linkedin-square"></i> LinkedIn</a></li>
+                    <li><a href="https://github.com/tonprofil" target="_blank"><i class="fa fa-github"></i> GitHub</a>
+                    </li>
+                    <li><a href="https://twitter.com/tonprofil" target="_blank"><i class="fa fa-twitter"></i>
+                            Twitter</a></li>
+                    <li><a href="https://flickr.com/tonprofil" target="_blank"><i class="fa fa-flickr"></i> Flickr</a>
+                    </li>
                 </ul>
             </section>
 
-            <!-- Section Langues -->
             <section>
-                <h2>Langues</h2>
-                <ul>
-                    <li><strong>Français</strong> : Langue maternelle</li>
-                    <li><strong>Anglais</strong> : Courant (C1)</li>
-                    <li><strong>Espagnol</strong> : Intermédiaire (B1)</li>
-                </ul>
+                <p>&copy; 2025 Thomas Dupont. Tous droits réservés.</p>
+                <p>Page créée dans le cadre d'un projet de développement web.</p>
             </section>
+        </footer>
+    </div>
+</body>
 
-            <!-- Section Hobbies -->
-            <section>
-                <h2><i class="fa fa-heart"></i> Hobbies</h2>
-                <ul>
-                    <li><i class="fa fa-book"></i> Lecture : Romans, Science-Fiction</li>
-                    <li><i class="fa fa-plane"></i> Voyages : Découverte de nouvelles cultures</li>
-                    <li><i class="fa fa-camera"></i> Photographie : Passion pour les paysages urbains et naturels</li>
-                </ul>
-            </section>
-
-
-            <!-- Section Footer -->
-            <footer>
-                <section>
-                    <h3>Suivez-moi</h3>
-                    <ul>
-                        <li><a href="https://www.linkedin.com/in/tonprofil" target="_blank"><i class="fa fa-linkedin-square"></i> LinkedIn</a></li>
-                        <li><a href="https://github.com/tonprofil" target="_blank"><i class="fa fa-github"></i> GitHub</a></li>
-                        <li><a href="https://twitter.com/tonprofil" target="_blank"><i class="fa fa-twitter"></i> Twitter</a></li>
-                        <li><a href="https://flickr.com/tonprofil" target="_blank"><i class="fa fa-flickr"></i> Flickr</a></li>
-                    </ul>
-                </section>
-                
-                <section>
-                    <p>&copy; 2025 Thomas Dupont. Tous droits réservés.</p>
-                    <p>Page créée dans le cadre d'un projet de développement web.</p>
-                </section>
-            </footer>
-        </div>
-    </body>
 </html>

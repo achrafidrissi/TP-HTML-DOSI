@@ -133,4 +133,39 @@ header img:hover {
     box-shadow: 0 6px 16px rgba(0,0,0,0.35);
 }
 
+.detail-btn-wrapper { margin-left: 8px; }
 
+.detail-toggle {
+  font: inherit;
+  padding: 4px 8px;
+  margin-left: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: #f3f3f3;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.detail-toggle:hover { background: #e9e9e9; }
+
+.detail-panel {
+  margin: 6px 0 12px 24px;
+  padding: 10px 12px;
+  border-left: 3px solid #2a2a2a;
+  background: #fafafa;
+  color: #444;
+}
+
+@media only screen and (max-width: 740px) {
+  .detail-panel { margin-left: 12px; }
+}
+
+/* Variante avec classe pour contrôle visuel et transitions si besoin */
+.detail-panel { display: none; }
+.detail-panel.is-open { display: block; }
+
+/* Optionnel: style du bouton actif */
+.detail-toggle.is-open {
+  background: #e1eefc;
+  border-color: #79a7e3;
+}
