@@ -150,22 +150,32 @@ header img:hover {
 
 .detail-panel {
   margin: 6px 0 12px 24px;
-  padding: 10px 12px;
-  border-left: 3px solid #2a2a2a;
   background: #fafafa;
   color: #444;
+  overflow: hidden;            /* cache le contenu pendant l’animation */
+  height: 0;                   /* point de départ fermé */
+  padding-top: 0;              /* padding progressif optionnel */
+  padding-bottom: 0;           /* padding progressif optionnel */
+  transition: none;            /* l’animation se fait en JS ici */
+  border-left: 3px solid #2a2a2a;
 }
 
 @media only screen and (max-width: 740px) {
   .detail-panel { margin-left: 12px; }
 }
 
-/* Variante avec classe pour contrôle visuel et transitions si besoin */
-.detail-panel { display: none; }
-.detail-panel.is-open { display: block; }
-
 /* Optionnel: style du bouton actif */
 .detail-toggle.is-open {
   background: #e1eefc;
   border-color: #79a7e3;
+}
+
+.detail-panel ul {
+  margin: 0;
+  padding-left: 18px;
+  list-style-type: disc;
+}
+
+.detail-panel li {
+  margin: 4px 0;
 }
