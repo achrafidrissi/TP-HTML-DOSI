@@ -1,0 +1,27 @@
+{
+  "skillsRatings": [
+    { "name": "AWS", "level": 5 },
+    { "name": "Terraform", "level": 4 },
+    { "name": "Ansible", "level": 4 },
+    { "name": "Docker", "level": 5 },
+    { "name": "Kubernetes", "level": 4 },
+    { "name": "Java 17", "level": 5 },
+    { "name": "Spring Boot", "level": 5 },
+    { "name": "Jenkins", "level": 4 },
+    { "name": "GitHub Actions", "level": 4 },
+    { "name": "SQL", "level": 4 },
+    { "name": "MongoDB", "level": 3 },
+    { "name": "DynamoDB", "level": 3 }
+  ],
+  "uiText": {
+    "detailsOpen": "− Masquer",
+    "detailsClosed": "+ Détails",
+    "noDetail": "Aucun détail supplémentaire."
+  },
+  "chart": {
+    "barColor": "#79a7e3",
+    "axisColor": "#2a2a2a",
+    "gridColor": "#eee",
+    "maxLevel": 5
+  }
+}
